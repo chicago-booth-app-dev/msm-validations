@@ -17,9 +17,12 @@ class Movie < ApplicationRecord
     my_director_id = self.director_id
 
     matching_directors = Director.where({ :id => my_director_id })
-    
+
     the_director = matching_directors.at(0)
 
     return the_director
   end
+
+  validates(:director_id, { :presence => true })
+  validates(:title, { :uniqueness => { :scope => [:year] } })
 end
